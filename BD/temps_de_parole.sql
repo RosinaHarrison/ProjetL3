@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.3
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Apr 12, 2021 at 05:42 PM
--- Server version: 5.7.26
--- PHP Version: 7.4.2
+-- Hôte : localhost:3306
+-- Généré le : lun. 26 avr. 2021 à 13:32
+-- Version du serveur :  5.7.24
+-- Version de PHP : 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Temps_de_parole`
+-- Base de données : `temps_de_parole`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ajoute_a`
+-- Structure de la table `ajoute_a`
 --
 
 CREATE TABLE `ajoute_a` (
@@ -34,7 +36,7 @@ CREATE TABLE `ajoute_a` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `amelioration`
+-- Structure de la table `amelioration`
 --
 
 CREATE TABLE `amelioration` (
@@ -43,7 +45,7 @@ CREATE TABLE `amelioration` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `amelioration`
+-- Déchargement des données de la table `amelioration`
 --
 
 INSERT INTO `amelioration` (`idAmelioration`, `amelioration_texte`) VALUES
@@ -108,7 +110,7 @@ INSERT INTO `amelioration` (`idAmelioration`, `amelioration_texte`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_commente`
+-- Structure de la table `a_commente`
 --
 
 CREATE TABLE `a_commente` (
@@ -119,7 +121,7 @@ CREATE TABLE `a_commente` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_propose_amelioration`
+-- Structure de la table `a_propose_amelioration`
 --
 
 CREATE TABLE `a_propose_amelioration` (
@@ -130,7 +132,7 @@ CREATE TABLE `a_propose_amelioration` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `commentaire`
+-- Structure de la table `commentaire`
 --
 
 CREATE TABLE `commentaire` (
@@ -142,7 +144,7 @@ CREATE TABLE `commentaire` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `commentaire`
+-- Déchargement des données de la table `commentaire`
 --
 
 INSERT INTO `commentaire` (`idCom`, `commentaire_texte`, `ref`, `pseudo`, `dateCom`) VALUES
@@ -155,12 +157,14 @@ INSERT INTO `commentaire` (`idCom`, `commentaire_texte`, `ref`, `pseudo`, `dateC
 (8, ' po', '2001', 'leboss', ''),
 (9, ' dc', '2017', 'Alphatrio', '2021-04-01 09:36:23'),
 (10, ' tr', '2017', 'Alphatrio', '2021-04-01 10:47:04'),
-(11, ' and', 'cherie fm', 'Alphatrio', '2021-04-08 21:09:49');
+(11, ' and', 'cherie fm', 'Alphatrio', '2021-04-08 21:09:49'),
+(12, ' Très intéressant !\r\n', 'RMC', 'rosinax', '2021-04-25 12:07:29'),
+(13, ' On voit quand même une disproportion ici !', 'Canal plus Sport', 'rosinax', '2021-04-25 12:27:45');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `elues`
+-- Structure de la table `elues`
 --
 
 CREATE TABLE `elues` (
@@ -171,7 +175,7 @@ CREATE TABLE `elues` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `elues`
+-- Déchargement des données de la table `elues`
 --
 
 INSERT INTO `elues` (`idElues`, `typeElues`, `repartitionElues`, `annee`) VALUES
@@ -211,7 +215,7 @@ INSERT INTO `elues` (`idElues`, `typeElues`, `repartitionElues`, `annee`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `esalaire`
+-- Structure de la table `esalaire`
 --
 
 CREATE TABLE `esalaire` (
@@ -222,7 +226,7 @@ CREATE TABLE `esalaire` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `esalaire`
+-- Déchargement des données de la table `esalaire`
 --
 
 INSERT INTO `esalaire` (`idEcart`, `EcartPublic`, `EcartPrive`, `annee`) VALUES
@@ -253,7 +257,28 @@ INSERT INTO `esalaire` (`idEcart`, `EcartPublic`, `EcartPrive`, `annee`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `media`
+-- Structure de la table `favoris`
+--
+
+CREATE TABLE `favoris` (
+  `id_fav` int(11) NOT NULL,
+  `idUt` int(11) NOT NULL,
+  `lien` varchar(5000) NOT NULL,
+  `nomPage` varchar(5000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `favoris`
+--
+
+INSERT INTO `favoris` (`id_fav`, `idUt`, `lien`, `nomPage`) VALUES
+(2, 8, 'tvPage.php?rnomMed=Canal plus Sport', 'Canal plus Sport'),
+(3, 8, 'year.php?annee=2017', '2017');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `media`
 --
 
 CREATE TABLE `media` (
@@ -266,7 +291,7 @@ CREATE TABLE `media` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `media`
+-- Déchargement des données de la table `media`
 --
 
 INSERT INTO `media` (`idMed`, `typeMed`, `rnomMed`, `public`, `temps_parole`, `annee`) VALUES
@@ -967,7 +992,7 @@ INSERT INTO `media` (`idMed`, `typeMed`, `rnomMed`, `public`, `temps_parole`, `a
 -- --------------------------------------------------------
 
 --
--- Table structure for table `page`
+-- Structure de la table `page`
 --
 
 CREATE TABLE `page` (
@@ -978,148 +1003,171 @@ CREATE TABLE `page` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utilisateur`
+-- Structure de la table `utilisateur`
 --
 
 CREATE TABLE `utilisateur` (
   `idUtilisateur` int(11) NOT NULL,
   `pseudo` varchar(5000) DEFAULT NULL,
   `mdp_u` varchar(5000) DEFAULT NULL,
-  `mail_utilisateur` varchar(5000) DEFAULT NULL
+  `mail_utilisateur` varchar(5000) DEFAULT NULL,
+  `avatar` varchar(5000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `utilisateur`
+-- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`idUtilisateur`, `pseudo`, `mdp_u`, `mail_utilisateur`) VALUES
-(1, 'Robin', 'a', 'rr@rr.fr'),
-(2, 'R', 'r', 'r'),
-(3, 'Romane27', 'op', 'opop'),
-(4, 'Alphatrio', 'aqzsed', 'theodore.michelpicque@gmail.com'),
-(5, 'r', 'r', 'r'),
-(6, 'robin805', 'robin', 'robinbiagioni97@gmail.com'),
-(7, 'a', 'a', 'a');
+INSERT INTO `utilisateur` (`idUtilisateur`, `pseudo`, `mdp_u`, `mail_utilisateur`, `avatar`) VALUES
+(1, 'Robin', 'a', 'rr@rr.fr', ''),
+(2, 'R', 'r', 'r', ''),
+(3, 'Romane27', 'op', 'opop', ''),
+(4, 'Alphatrio', 'aqzsed', 'theodore.michelpicque@gmail.com', ''),
+(5, 'r', 'r', 'r', ''),
+(6, 'robin805', 'robin', 'robinbiagioni97@gmail.com', ''),
+(7, 'a', 'a', 'a', ''),
+(8, 'rosinax', 'mdp', 'harrison.rosina@gmail.com', '8.jpg'),
+(9, 'sansavatar', 'mdp', 'sansavatar@gmail.com', NULL);
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `ajoute_a`
+-- Index pour la table `ajoute_a`
 --
 ALTER TABLE `ajoute_a`
   ADD KEY `idCom` (`idCom`),
   ADD KEY `idPage` (`idPage`);
 
 --
--- Indexes for table `amelioration`
+-- Index pour la table `amelioration`
 --
 ALTER TABLE `amelioration`
   ADD PRIMARY KEY (`idAmelioration`);
 
 --
--- Indexes for table `a_commente`
+-- Index pour la table `a_commente`
 --
 ALTER TABLE `a_commente`
   ADD KEY `idUtil` (`idUtil`),
   ADD KEY `idCom` (`idCom`);
 
 --
--- Indexes for table `a_propose_amelioration`
+-- Index pour la table `a_propose_amelioration`
 --
 ALTER TABLE `a_propose_amelioration`
   ADD KEY `idUtil` (`idUtil`),
   ADD KEY `idAmelioration` (`idAmelioration`);
 
 --
--- Indexes for table `commentaire`
+-- Index pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
   ADD PRIMARY KEY (`idCom`);
 
 --
--- Indexes for table `elues`
+-- Index pour la table `elues`
 --
 ALTER TABLE `elues`
   ADD PRIMARY KEY (`idElues`);
 
 --
--- Indexes for table `esalaire`
+-- Index pour la table `esalaire`
 --
 ALTER TABLE `esalaire`
   ADD PRIMARY KEY (`idEcart`);
 
 --
--- Indexes for table `media`
+-- Index pour la table `favoris`
+--
+ALTER TABLE `favoris`
+  ADD PRIMARY KEY (`id_fav`),
+  ADD KEY `idCle` (`idUt`);
+
+--
+-- Index pour la table `media`
 --
 ALTER TABLE `media`
   ADD PRIMARY KEY (`idMed`);
 
 --
--- Indexes for table `page`
+-- Index pour la table `page`
 --
 ALTER TABLE `page`
   ADD PRIMARY KEY (`idPage`);
 
 --
--- Indexes for table `utilisateur`
+-- Index pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   ADD PRIMARY KEY (`idUtilisateur`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `amelioration`
+-- AUTO_INCREMENT pour la table `amelioration`
 --
 ALTER TABLE `amelioration`
   MODIFY `idAmelioration` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
--- AUTO_INCREMENT for table `commentaire`
+-- AUTO_INCREMENT pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  MODIFY `idCom` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idCom` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `media`
+-- AUTO_INCREMENT pour la table `favoris`
+--
+ALTER TABLE `favoris`
+  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT pour la table `media`
 --
 ALTER TABLE `media`
   MODIFY `idMed` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=703;
 
 --
--- AUTO_INCREMENT for table `utilisateur`
+-- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Constraints for table `ajoute_a`
+-- Contraintes pour la table `ajoute_a`
 --
 ALTER TABLE `ajoute_a`
   ADD CONSTRAINT `ajoute_a_ibfk_1` FOREIGN KEY (`idCom`) REFERENCES `commentaire` (`idCom`),
   ADD CONSTRAINT `ajoute_a_ibfk_2` FOREIGN KEY (`idPage`) REFERENCES `page` (`idPage`);
 
 --
--- Constraints for table `a_commente`
+-- Contraintes pour la table `a_commente`
 --
 ALTER TABLE `a_commente`
   ADD CONSTRAINT `a_commente_ibfk_1` FOREIGN KEY (`idUtil`) REFERENCES `utilisateur` (`idUtilisateur`),
   ADD CONSTRAINT `a_commente_ibfk_2` FOREIGN KEY (`idCom`) REFERENCES `commentaire` (`idCom`);
 
 --
--- Constraints for table `a_propose_amelioration`
+-- Contraintes pour la table `a_propose_amelioration`
 --
 ALTER TABLE `a_propose_amelioration`
   ADD CONSTRAINT `a_propose_amelioration_ibfk_1` FOREIGN KEY (`idUtil`) REFERENCES `utilisateur` (`idUtilisateur`),
   ADD CONSTRAINT `a_propose_amelioration_ibfk_2` FOREIGN KEY (`idAmelioration`) REFERENCES `amelioration` (`idAmelioration`);
+
+--
+-- Contraintes pour la table `favoris`
+--
+ALTER TABLE `favoris`
+  ADD CONSTRAINT `idCle` FOREIGN KEY (`idUt`) REFERENCES `utilisateur` (`idUtilisateur`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
