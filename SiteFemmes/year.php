@@ -17,7 +17,8 @@
 
 
       <h4 class="list-group-item list-group-item-action active disabled bg-info border-0 text-center"><?php echo $_GET['annee'];//recuperation de l'année ?></h4>
-
+			
+			
     <div class="container text-center addalinea ">
         <br>
         <!-- TABLEAU ELUES PAR ANNEE -->
@@ -96,7 +97,7 @@
                       echo '</div></div>';
 
                       // echo '</select><br><br>';
-                      echo '<br><input class="btn btn-dark" type="submit" name="submit" value="Valider"><br>';
+                      echo '<br><input class="btn btn-dark" type="submit" name="submit" value="Valider"><br/>';
                       echo '</form>';
                       echo '<br>';
                     }
@@ -117,7 +118,7 @@
 
                 echo '<div> <a class="btn btn btn-outline-dark" href="histoAll.php?annee='.$annee.'" target="_blank"> Voir toutes </a></div><br>'; //lien vers un histogramme affichant toutes les chaines sur un nouvel onglet
                   ?>
-
+    
           </table><br>
 
           <!-- TABLEAU ECART SALARIAL PAR ANNEE  -->
@@ -140,7 +141,17 @@
                     $rep ->closeCursor();
 
                   ?>
-            </table><br>
+            </table><br/>
+	<p>
+	<?php 
+	if (isset($_SESSION['client'])){
+		echo '<form action="favoris.php" method="post" autocomplete="off">';		
+		echo '<input type="hidden" name="annee" value="'.$_GET['annee'].'"/>';
+		echo '<input type="hidden" name="type" value="year"/>';
+		echo '<p><input class="btn btn-dark" type="submit" value="Mettre dans mes favoris"></p></form>';
+	}
+	?>
+	</p>
     </div><br><br><br>
 
     <?php require_once "./forum_annee.php";?>

@@ -12,12 +12,12 @@
 
   
       require 'call_bd.php';
-      function connecter($id,$mdp){
+      function connecter($pseudo,$mdp){
         $bdd = getBD_TDP();
-        $mail = htmlspecialchars ($id);
+        $mail = htmlspecialchars ($pseudo);
         $mdp = htmlspecialchars ($mdp);
         $query = "SELECT * FROM utilisateur WHERE pseudo = ? AND mdp_u = ?";
-        $data = array($id, $mdp);
+        $data = array($pseudo, $mdp);
         $statement = $bdd->prepare($query);
         $exec = $statement->execute($data);
         $resultat = $statement->fetch();
@@ -29,7 +29,7 @@
         }
       }
 
-      $connect = connecter($_POST['id'],$_POST['mdp']);
+      $connect = connecter($_POST['pseudo'],$_POST['mdp']);
       if ($connect == -1){
         echo "Veuillez remplir les champs de connexions";
         echo '<META http-EQUIV="Refresh" CONTENT="0; url=login.php"/>';

@@ -18,9 +18,11 @@
   <?php $radio = $_GET['rnomMed']; //recuperation du nom du media?>
 
   <h4 class="list-group-item list-group-item-action active disabled bg-success border-0 text-center"><?php echo $radio; //affichage du nom du media ?></h4><br>
-  <?php   echo '<div class="container"> <img src=courbeMedia.php?rnomMed='.urlencode($radio).' class="img-fluid" </div>'; //appelle de la courbe de l'evolution du temps de parole ?>
+	
+	<?php   echo '<div class="container"> <img src=courbeMedia.php?rnomMed='.urlencode($radio).' class="img-fluid" </div>'; //appelle de la courbe de l'evolution du temps de parole ?>
   <br>
-
+  
+	
   <div class = "maindiv">
     <div class="container text-center addalinea">
 
@@ -144,6 +146,17 @@
                         }
                 echo '</table>';
     ?>
+	<p>
+	<?php 
+	if (isset($_SESSION['client'])){
+		echo '<form action="favoris.php" method="post" autocomplete="off">';		
+		echo '<input type="hidden" name="radio" value="'.$radio.'"/>';
+		echo '<input type="hidden" name="type" value="radio"/>';
+		echo '<p><input class="btn btn-dark" type="submit" value="Mettre dans mes favoris"></p></form>';
+	}
+	?>
+	</p>
+	
     </div>
   </div>
   </div>

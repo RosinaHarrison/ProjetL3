@@ -43,7 +43,7 @@
 						}
 						else{
 							echo '<li class="nav-item">';
-							echo	'<a class= "nav-link" href="#" role="button"><i class="fa fa-user"></i>      '.$_SESSION['client']['pseudo'].'</a>';
+							echo	'<a class= "nav-link" href="profil.php" role="button"><i class="fa fa-user"></i>      '.$_SESSION['client']['pseudo'].'</a>';
 							echo '</li>';
 							echo '<li class="nav-item">';
 							echo	'<a class="nav-link " href="deconnexion.php" role="button"><i class="fa fa-sign-out"></i>      Déconnexion</a>';

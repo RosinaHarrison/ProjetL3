@@ -16,9 +16,8 @@
   <?php $tv = $_GET['rnomMed']; //recuperation du nom du media ?>
 
   <h4 class="list-group-item list-group-item-action active disabled bg-danger border-0 text-center"><?php echo $tv; //affichage du nom du media?></h4>
-  <div class="container text-center addalinea"><br>
-
-
+  
+	<div class="container text-center addalinea"><br>
     <?php   echo '<div> <img  src=courbeMedia.php?rnomMed='.urlencode($tv).' class="img-fluid" </div>'; //appelle de la courbe de l'evolution du temps de parole?>
     <br>
     <?php //création d'un formulaire de choix pour afficher les informations d'une année choisie
@@ -143,6 +142,16 @@
               echo '</table>';
     }
     ?>
+	<p>
+	<?php 
+	if (isset($_SESSION['client'])){
+		echo '<form action="favoris.php" method="post" autocomplete="off">';		
+		echo '<input type="hidden" name="tv" value="'.$tv.'"/>';
+		echo '<input type="hidden" name="type" value="tv"/>';
+		echo '<p><input class="btn btn-dark" type="submit" value="Mettre dans mes favoris"></p></form>';
+	}
+	?>
+	</p>
       </div>
     </div>
     <br><br>

@@ -120,3 +120,33 @@ transition: all 0.2s ease 0s;
     height: 2.5rem;  
     background: #307497;
 }
+
+.avatar-circle {
+width: 150px; 
+height: 150px; 
+object-fit: cover; 
+border-radius: 50%;
+
+}
+
+.img-centre{
+	text-align : center;
+}
+
+tr.tab_comm{
+	text-align : center;
+}
+#global{
+  width:100%;
+}
+#global #gauche {
+    float:left;
+    width:49%;
+}
+#global #droite {
+    margin-left:51%  
+}
+
+.alinea{
+	margin-left : 10px;
+}

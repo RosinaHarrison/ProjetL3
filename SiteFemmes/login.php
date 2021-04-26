@@ -18,11 +18,11 @@
 		<form action="login2.php" method="post" autocomplete="off">
 			<div class="form-row">
 				<div class="col">
-					 <?php if (isset($_POST["id"])){
-                  echo '<input type="text" class="form-control name="id" placeholder="Identifiant" value="'.$_POST['id'].'"/>';
+					 <?php if (isset($_POST["pseudo"])){
+                  echo '<input type="text" class="form-control name="pseudo" placeholder="Identifiant" value="'.$_POST['pseudo'].'"/>';
                 }
                   else{
-                  echo '<input type="text" class="form-control" name="id" placeholder="Identifiant" value="">';
+                  echo '<input type="text" class="form-control" name="pseudo" placeholder="Identifiant" value="">';
                 }
                 ?>
 				</div>
