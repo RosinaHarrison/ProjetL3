@@ -6,6 +6,7 @@ session_start();
   <meta charset="utf-8">
   
 <?php
+
 //requete qui supprime la page choisie des favoris
 	$bdd = getBD_TDP();
 	$query = "DELETE FROM favoris WHERE id_fav= ?" ;

@@ -95,6 +95,7 @@ session_start();
 	
 	<p>
 	<?php
+	
 	//pour modifier la liste des favoris
 	echo '<table class="table">';
 	echo '<thead class="thead bg-danger">'; 
