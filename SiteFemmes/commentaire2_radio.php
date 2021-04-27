@@ -10,15 +10,15 @@
 
   	require 'call_bd.php';
 
-  	function commentaire($com,$ref,$pseudo,$date){
+  	function commentaire($com,$ref,$pseudo,$date,$avatar){
         $bdd = getBD_TDP();
-        $query = "INSERT INTO commentaire (commentaire_texte,ref,pseudo,dateCom) VALUES(?,?,?,?)";
-        $data = array($com,$ref,$pseudo,$date);
+        $query = "INSERT INTO commentaire (commentaire_texte,ref,pseudo,dateCom,avatarCom) VALUES(?,?,?,?,?)";
+        $data = array($com,$ref,$pseudo,$date,$avatar);
         $statement = $bdd->prepare($query); 
         $exec = $statement->execute($data);
     }
 
-    commentaire($_POST['com'],$_POST['ref'],$_SESSION['client']['pseudo'],date('Y-m-d H:i:s'));
+    commentaire($_POST['com'],$_POST['ref'],$_SESSION['client']['pseudo'],date('Y-m-d H:i:s'),$_SESSION['client']['avatar']);
     $ref=$_POST['ref'];
     
     echo '<meta http-equiv="Refresh" content="0; URL=radioPage.php?rnomMed='.urlencode($ref).'"/>';

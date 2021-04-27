@@ -10,10 +10,10 @@
 		<tbody>
 			<?php 
 			$bdd = getBD_TDP();
-			$aneee=$_GET['annee'];
-			$rep = $bdd->query('SELECT * FROM commentaire WHERE ref =' .$annee);
+			$annee=$_GET['annee'];
+			$rep = $bdd->query('SELECT * FROM commentaire WHERE ref ='.$annee.'');
 			while ($ligne = $rep ->fetch()) {
-				echo '<tr><td> '.$ligne['pseudo'].'</td>'; 
+				echo '<tr><td> <img class="img-comm" src="avatars/'.$ligne['avatarCom'].'"> '.$ligne['pseudo'].'</td>'; //ajout avatar dans commentaire 
 				echo '<td> '.$ligne['dateCom'].'</td>';
 				echo'<td>'.$ligne['commentaire_texte'].'</td></tr>';
 			}

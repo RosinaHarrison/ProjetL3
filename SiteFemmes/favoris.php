@@ -10,9 +10,10 @@
 	
 	require 'call_bd.php';
 	
+	//conditions vérifiant le type de média afin de savoir ou rediriger
 	if ($_POST['type'] == "year"){
-	$nom=$_POST['annee'];
-	$lien_fav = 'year.php?annee='.$_POST['annee'].''; 
+		$nom=$_POST['annee'];
+		$lien_fav = 'year.php?annee='.$_POST['annee'].''; 
 	}
 	elseif ($_POST['type'] == "radio"){
 		$nom=$_POST['radio'];
@@ -23,15 +24,17 @@
 		$lien_fav = 'tvPage.php?rnomMed='.$_POST['tv'].'';
 	}
 	
+	//ajout à la bd avec $nom et $lien_fav selon la condition 
 	$bdd = getBD_TDP();
 	$query = "INSERT INTO favoris (idUt, lien, nomPage) VALUES (?,?,?)";
-	$data = array($_SESSION['client']['idUtilisateur'], $lien_fav, $nom);
+	$data = array($_SESSION['client']['idUtilisateur'], $lien_fav, $nom); 
 	$ajoutFav = $bdd -> prepare($query);
 	$exec = $ajoutFav -> execute($data);
 
+	echo '<meta http-equiv="refresh" content="0;URL='.$lien_fav.'">'; //redirection vers la page d'origine
    ?>
    
-   <meta http-equiv="refresh" content="0;URL=profil.php">
+  
 
 	
 

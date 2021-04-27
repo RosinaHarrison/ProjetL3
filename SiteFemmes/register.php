@@ -5,29 +5,55 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <script type="text/javascript" src="popup.js"> </script>
   <title>Les Femmes à la TV et à la Radio</title>
   <?php require_once "./appelstyles.php";?>
-
+  <script>
+  function popup_inscr_vide(){
+	alert('Vous avez oublié de remplir un champ !');}
+  function popup_inscr_existe(){
+	alert('Le pseudo ou le mail correspondent déjà à une inscription !');}
+  function popup_inscr_mdp(){
+	alert('Vos mots de passe ne correspondent pas !');}
+</script>
 </head>
-
-<body>
-	<?php require_once "./header.php";?>
+<?php 
+		//premiere condition correpsond à celle de registration mais n'a pas fonctionné
+		/*if (!(empty($_SESSION['inscr_existe']))){
+			unset($_SESSION['inscr_existe']);
+			echo "<body onload = popup_inscr_existe()>";
+		}*/
+		if (!(empty($_SESSION['inscr_vide']))){ // verifie si il y a un champ vide
+			unset($_SESSION['inscr_vide']); // si oui, on détruit la variable
+			echo '<body onLoad = "popup_inscr_vide()">'; //chargement popup correspondante à l'erreur
+		}
+		else if (!(empty($_SESSION['inscr_mdp']))){
+			unset($_SESSION['inscr_mdp']);
+			echo '<body onLoad = "popup_inscr_mdp()">';
+		}
+		else{
+			echo'<body>';
+			}
+		?>	
+		
+	<?php require_once "./header.php";
+	require 'call_bd.php';?>
 
 	<div class="container addtopmargin addbottommargin">
 		<form action="registration.php" method="post" autocomplete="off">
 			<div class="form-row">
 				<div class="col">
-          <input type="text" name="pseudo" class="form-control" placeholder="Pseudo" value=""/>
+          <?php echo '<input type="text" name="pseudo" class="form-control" placeholder="Pseudo" value='.$_GET['pseudo'].'>'; ?>
 				</div>
 			</div>
       <div class="form-row">
         <div class="col">
-          <input type="text" name="mail" class="form-control" placeholder="Adresse e-mail" value=""/>
+          <?php echo '<input type="text" name="mail" class="form-control" placeholder="Adresse e-mail" value='.$_GET['mail'].'>'; ?>
         </div>
       </div>
 			<div class="form-row">
 				<div class="col">
-          <input type="password" name="mdp1" class="form-control" placeholder="Mot de passe" value=""/>
+          <input type="password" name="mdp1" class="form-control" placeholder="Mot de passe" value="">
 				</div>
 			</div>
 			<div class="form-row">
@@ -41,9 +67,7 @@
 				</div>
 			</div>
 		</form>
-		<a class="btn btn-outline-dark btn-floating m-1" href="login.php" role="button"><i class="fa fa-sign-in"></i>   Se connecter</a>
-
-
+		<a class="btn btn-outline-dark btn-floating m-1" href="login.php" role="button"><i class="fa fa-sign-in"></i>   Se connecter</a>	
 
 	</div><br><br><br>
 

@@ -14,7 +14,7 @@
 					$sql="SELECT * FROM commentaire WHERE ref ='".$media."'";
 			$rep = $bdd->query($sql);
 			while ($ligne = $rep ->fetch()) {
-				echo '<tr> <td> '.$ligne['pseudo'].'</td>';
+				echo '<tr> <td> <img class="img-comm" src="avatars/'.$ligne['avatarCom'].'"> '.$ligne['pseudo'].'</td>'; //ajout avatar dans commentaire
 				echo '<td> '.$ligne['dateCom'].'</td>';
 				echo'<td>'.$ligne['commentaire_texte'].'</td></tr>';
 			}

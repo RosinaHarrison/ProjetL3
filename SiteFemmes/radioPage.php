@@ -1,4 +1,5 @@
 <?php
+
        session_start();
 
        //LA DOCUMENTATION EST SENSIBLEMENT LA MEME QUE tvPAGE
@@ -146,15 +147,27 @@
                         }
                 echo '</table>';
     ?>
+	
+	
 	<p>
 	<?php 
-	if (isset($_SESSION['client'])){
+	if (isset($_SESSION['client'])){ // si utilisateur connecté
+		//bouton qui permet de mettre la page dans une liste favoris
 		echo '<form action="favoris.php" method="post" autocomplete="off">';		
 		echo '<input type="hidden" name="radio" value="'.$radio.'"/>';
 		echo '<input type="hidden" name="type" value="radio"/>';
-		echo '<p><input class="btn btn-dark" type="submit" value="Mettre dans mes favoris"></p></form>';
+		echo '<p><input id="fav" class="btn btn-dark" type="submit" value="Mettre dans mes favoris"></p></form>';
 	}
 	?>
+	
+	<script>
+	// popup indiquant à l'utilisateur que la page a bien été ajouté aux favoris
+	var favoris = document.getElementById("fav"); 
+	favoris.onclick = function(event) {
+	alert("La page a bien été ajoutée à vos favoris !");
+	}
+	</script>
+	
 	</p>
 	
     </div>

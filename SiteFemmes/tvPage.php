@@ -142,16 +142,32 @@
               echo '</table>';
     }
     ?>
+	
+	
+	
+	
 	<p>
 	<?php 
-	if (isset($_SESSION['client'])){
+	if (isset($_SESSION['client'])){ //si utilisateur connecté ajout bouton favoris
 		echo '<form action="favoris.php" method="post" autocomplete="off">';		
 		echo '<input type="hidden" name="tv" value="'.$tv.'"/>';
 		echo '<input type="hidden" name="type" value="tv"/>';
 		echo '<p><input class="btn btn-dark" type="submit" value="Mettre dans mes favoris"></p></form>';
 	}
 	?>
+	
+	<script>
+	// popup indiquant à l'utilisateur que la page a bien été ajouté aux favoris
+	var favoris = document.getElementById("fav"); 
+	favoris.onclick = function(event) {
+	alert("La page a bien été ajoutée à vos favoris !");
+	}
+	</script>
 	</p>
+	
+	
+	
+	
       </div>
     </div>
     <br><br>

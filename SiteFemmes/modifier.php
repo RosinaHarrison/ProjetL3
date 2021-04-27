@@ -25,17 +25,21 @@ session_start();
   
   <br><h1> Modifier mon profil </h1>
   
-  <?php if (isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name'])){
-			$tailleMax = 2097152;
-			$extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
+  <?php 
+  //conditions pour l'upload de la photo de profil
+  // vérification de l'existence du fichier
+  if (isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name'])){ 
+			$tailleMax = 2097152; // taille max environ 2Mo
+			$extensionsValides = array('jpg', 'jpeg', 'gif', 'png'); //contrainte au niveau des extensions autorisées
 			
 			if($_FILES['avatar']['size'] <= $tailleMax){
-				$extensionUpload = strtolower(substr(strstr($_FILES['avatar']['name'], '.'), 1));
+				$extensionUpload = strtolower(substr(strstr($_FILES['avatar']['name'], '.'), 1)); // récupère seulement l'extension sans le '.'
 				
-				if(in_array($extensionUpload, $extensionsValides)){
+				// si l'extension appartient aux extensions autorisées
+				if(in_array($extensionUpload, $extensionsValides)){ 
 					$chemin = "avatars/".$_SESSION['client']['idUtilisateur'].".".$extensionUpload."" ;
-					$resultat = move_uploaded_file($_FILES['avatar']['tmp_name'], $chemin); //utilisation fonction prédéfinie afin de déplacer le fichier photo.
-					if ($resultat){
+					$resultat = move_uploaded_file($_FILES['avatar']['tmp_name'], $chemin); //utilisation fonction prédéfinie afin de déplacer le fichier photo dans le dossier avatars.
+					if ($resultat){ //si succès mettre sur la bd sql
 						$bdd = getBD_TDP();
 						$query = "UPDATE utilisateur SET avatar = :avatar WHERE idUtilisateur = :idUtilisateur";
 						$data = array('avatar' => $_SESSION['client']['idUtilisateur'].".".$extensionUpload, 
@@ -62,12 +66,12 @@ session_start();
 			<label class="alinea"> Modifier votre pseudo ou adresse mail :</label>
 			<div class="form-row">
 				<div class="col">
-				<?php echo '<input type="text" class="form-control name="pseudo" placeholder="Identifiant" value="'.$_SESSION['client']['pseudo'].'"/>'; ?>
+				<?php echo '<input type="text" class="form-control" name="pseudo" placeholder="Identifiant" value="'.$_SESSION['client']['pseudo'].'"/>'; ?>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="col">
-				<?php echo '<input type="text" class="form-control name="mail" placeholder="Adresse Mail" value="'.$_SESSION['client']['mail_utilisateur'].'"/>'; ?>
+				<?php echo '<input type="text" class="form-control" name="mail" placeholder="Adresse Mail" value="'.$_SESSION['client']['mail_utilisateur'].'"/>'; ?>
 				</div>
 			</div> <br/>
 			<label class="alinea"> Modifier votre mot de passe : </label>
@@ -87,6 +91,31 @@ session_start();
 				</div>
 			</div>
 		</form>	
+	</p>
+	
+	<p>
+	<?php
+	//pour modifier la liste des favoris
+	echo '<table class="table">';
+	echo '<thead class="thead bg-danger">'; 
+	echo '<tr class="tab_comm"><th scope="col"> Modifier Pages Favorites </th></tr>';
+	echo '</thead>';
+	$bdd = getBD_TDP(); //connexion bd
+	$fav = $bdd -> query ('SELECT * FROM favoris WHERE idUt = "'.$_SESSION['client']['idUtilisateur'].'"'); 
+	while ($ligne = $fav -> fetch()){
+		echo '<tr class="tab_comm"><td><a href="'.$ligne['lien'].'">'.$ligne['nomPage'].'</a>';
+
+		//ajout d'un bouton supprimer dans un formulaire avec attribut caché
+		echo '<form method="POST" action="modif_favoris.php" autocomplete="off">
+			<input type="hidden" class="form-control" name="idFav" value="'.$ligne['id_fav'].'">
+			<input type="submit" class="btn btn-outline-dark btn-floating m-1" value="supprimer">
+		</form>';
+		echo '</td></tr>';
+	}
+	$fav -> closeCursor();
+	echo'</table>';
+
+	?>
 	</p>
 
 	

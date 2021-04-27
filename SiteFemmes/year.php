@@ -141,7 +141,9 @@
                     $rep ->closeCursor();
 
                   ?>
-            </table><br/>
+  </table><br/>
+	
+	
 	<p>
 	<?php 
 	if (isset($_SESSION['client'])){
@@ -151,7 +153,18 @@
 		echo '<p><input class="btn btn-dark" type="submit" value="Mettre dans mes favoris"></p></form>';
 	}
 	?>
+	<script>
+	// popup indiquant à l'utilisateur que la page a bien été ajouté aux favoris
+	var favoris = document.getElementById("fav"); 
+	favoris.onclick = function(event) {
+	alert("La page a bien été ajoutée à vos favoris !");
+	}
+	</script>
 	</p>
+	
+	
+	
+	
     </div><br><br><br>
 
     <?php require_once "./forum_annee.php";?>
