@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 26 avr. 2021 à 13:32
+-- Généré le : mar. 27 avr. 2021 à 18:10
 -- Version du serveur :  5.7.24
 -- Version de PHP : 7.4.1
 
@@ -114,8 +114,8 @@ INSERT INTO `amelioration` (`idAmelioration`, `amelioration_texte`) VALUES
 --
 
 CREATE TABLE `a_commente` (
-  `idUtil` int(11) DEFAULT NULL,
-  `idCom` int(11) DEFAULT NULL
+  `idUtil` int(11) NOT NULL,
+  `idCom` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -140,26 +140,18 @@ CREATE TABLE `commentaire` (
   `commentaire_texte` varchar(5000) DEFAULT NULL,
   `ref` varchar(100) DEFAULT NULL,
   `pseudo` varchar(255) DEFAULT NULL,
-  `dateCom` varchar(200) DEFAULT NULL
+  `dateCom` varchar(200) DEFAULT NULL,
+  `avatarCom` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `commentaire`
 --
 
-INSERT INTO `commentaire` (`idCom`, `commentaire_texte`, `ref`, `pseudo`, `dateCom`) VALUES
-(2, ' Test', '1995', 'Alphatrio', '2021-03-29 10:21:34'),
-(3, ' Test 2', '1995', 'Alphatrio', '2021-03-29 11:11:26'),
-(4, ' sd', '2001', 'leboss', ''),
-(5, ' sd', '2015', 'leboss', ''),
-(6, ' a', 'Europe 1', 'leboss', ''),
-(7, ' zz', '2011', 'leboss', ''),
-(8, ' po', '2001', 'leboss', ''),
-(9, ' dc', '2017', 'Alphatrio', '2021-04-01 09:36:23'),
-(10, ' tr', '2017', 'Alphatrio', '2021-04-01 10:47:04'),
-(11, ' and', 'cherie fm', 'Alphatrio', '2021-04-08 21:09:49'),
-(12, ' Très intéressant !\r\n', 'RMC', 'rosinax', '2021-04-25 12:07:29'),
-(13, ' On voit quand même une disproportion ici !', 'Canal plus Sport', 'rosinax', '2021-04-25 12:27:45');
+INSERT INTO `commentaire` (`idCom`, `commentaire_texte`, `ref`, `pseudo`, `dateCom`, `avatarCom`) VALUES
+(14, ' Très intéressant !', '2010', 'rosinax', '2021-04-27 12:32:40', '8.jpg'),
+(15, ' On voit quand même une augmentation !', 'Europe 1', 'rosinax', '2021-04-27 12:37:57', '8.jpg'),
+(16, ' Il y a une grosse disproportion ici !', 'Canal plus Sport', 'rosinax', '2021-04-27 12:38:23', '8.jpg');
 
 -- --------------------------------------------------------
 
@@ -272,8 +264,8 @@ CREATE TABLE `favoris` (
 --
 
 INSERT INTO `favoris` (`id_fav`, `idUt`, `lien`, `nomPage`) VALUES
-(2, 8, 'tvPage.php?rnomMed=Canal plus Sport', 'Canal plus Sport'),
-(3, 8, 'year.php?annee=2017', '2017');
+(14, 8, 'radioPage.php?rnomMed=RFM', 'RFM'),
+(15, 8, 'radioPage.php?rnomMed=NRJ', 'NRJ');
 
 -- --------------------------------------------------------
 
@@ -1008,9 +1000,9 @@ CREATE TABLE `page` (
 
 CREATE TABLE `utilisateur` (
   `idUtilisateur` int(11) NOT NULL,
-  `pseudo` varchar(5000) DEFAULT NULL,
+  `pseudo` varchar(256) DEFAULT NULL,
   `mdp_u` varchar(5000) DEFAULT NULL,
-  `mail_utilisateur` varchar(5000) DEFAULT NULL,
+  `mail_utilisateur` varchar(256) DEFAULT NULL,
   `avatar` varchar(5000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1019,15 +1011,8 @@ CREATE TABLE `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `pseudo`, `mdp_u`, `mail_utilisateur`, `avatar`) VALUES
-(1, 'Robin', 'a', 'rr@rr.fr', ''),
-(2, 'R', 'r', 'r', ''),
-(3, 'Romane27', 'op', 'opop', ''),
-(4, 'Alphatrio', 'aqzsed', 'theodore.michelpicque@gmail.com', ''),
-(5, 'r', 'r', 'r', ''),
-(6, 'robin805', 'robin', 'robinbiagioni97@gmail.com', ''),
-(7, 'a', 'a', 'a', ''),
 (8, 'rosinax', 'mdp', 'harrison.rosina@gmail.com', '8.jpg'),
-(9, 'sansavatar', 'mdp', 'sansavatar@gmail.com', NULL);
+(10, 'pierre200', 'pierre', 'pierre@hotmail.com', 'default_avatar.jpg');
 
 --
 -- Index pour les tables déchargées
@@ -1083,7 +1068,7 @@ ALTER TABLE `esalaire`
 --
 ALTER TABLE `favoris`
   ADD PRIMARY KEY (`id_fav`),
-  ADD KEY `idCle` (`idUt`);
+  ADD KEY `idUt` (`idUt`);
 
 --
 -- Index pour la table `media`
@@ -1101,7 +1086,9 @@ ALTER TABLE `page`
 -- Index pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  ADD PRIMARY KEY (`idUtilisateur`);
+  ADD PRIMARY KEY (`idUtilisateur`),
+  ADD UNIQUE KEY `pseudo` (`pseudo`),
+  ADD UNIQUE KEY `mail_utilisateur` (`mail_utilisateur`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -1117,13 +1104,13 @@ ALTER TABLE `amelioration`
 -- AUTO_INCREMENT pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  MODIFY `idCom` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idCom` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `favoris`
 --
 ALTER TABLE `favoris`
-  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT pour la table `media`
@@ -1135,7 +1122,7 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Contraintes pour les tables déchargées
@@ -1166,7 +1153,7 @@ ALTER TABLE `a_propose_amelioration`
 -- Contraintes pour la table `favoris`
 --
 ALTER TABLE `favoris`
-  ADD CONSTRAINT `idCle` FOREIGN KEY (`idUt`) REFERENCES `utilisateur` (`idUtilisateur`);
+  ADD CONSTRAINT `favoris_ibfk_1` FOREIGN KEY (`idUt`) REFERENCES `utilisateur` (`idUtilisateur`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
