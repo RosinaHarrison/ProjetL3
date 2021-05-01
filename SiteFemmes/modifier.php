@@ -1,4 +1,7 @@
 <?php 
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
 session_start();
  ?>
  
@@ -12,16 +15,49 @@ session_start();
     <script type="text/javascript" src="popup.js"> </script>
     <title>Les Femmes à la TV et à la Radio</title>
     <?php require_once "./appelstyles.php";?>
+	<?php require 'modif_profil.php'; ?>
+	
+	<script> 
+	function popup_mdp(){
+		alert("Votre mot de passe a bien été modifié");
+	}
+  </script>
+  
   </head>
-
-  <body>
   
-  <?php require_once "./header.php";?>
   
-  <br><h1> Modifier mon profil </h1>
+<?php  
+if (!(empty($_POST['mdp']))){
+	if(!(empty($_POST['mdp2']))){
+		if($_POST['mdp'] == $_POST['mdp2']){
+			update_mdp($_POST['mdp'],$_SESSION['client']['idUtilisateur']);						
+			echo '<body onLoad="popup_mdp()">';
+			require_once "./header.php";
+			echo '<br><h1> Modifier mon profil </h1>';			
+		}
+		else{
+			echo'<body>';
+			require_once "./header.php";
+			echo '<br><h1> Modifier mon profil </h1>';
+			echo 'Vos mots de passe ne correspondent pas !<br/>';
+		}
+	}
+	else{
+		echo '<body>';
+	    require_once "./header.php";
+		echo '<br><h1> Modifier mon profil </h1>';
+		echo 'Veuillez confirmer le mot de passe<br/>';
+	}
+} 
+else{
+	echo '<body>';
+	require_once "./header.php";
+	echo '<br><h1> Modifier mon profil </h1>';
+}
+?>		
   
   <?php 
-  //conditions pour l'upload de la photo de profil
+  //conditions pour l'upload de la photo de profil //aide video youtube primFX
   // vérification de l'existence du fichier
   if (isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name'])){ 
 			$tailleMax = 2097152; // taille max environ 2Mo
@@ -42,15 +78,42 @@ session_start();
 						$updateAvatar = $bdd -> prepare($query);
 						$exec = $updateAvatar -> execute($data);
 					}
-					else { echo "Votre fichier ne s'est pas importé";}
+					else { echo "Votre fichier ne s'est pas importé<br/>";}
 				}
-				else{ echo "L'extension du fichier n'est pas valide, les extensions autorisées sont jpg, jpeg, png et gif";}
+				else{ echo "L'extension du fichier n'est pas valide, les extensions autorisées sont jpg, jpeg, png et gif<br/>";}
 			}
-			else{ echo "La photo dépasse la taille autorisée";}
+			else{ echo "La photo dépasse la taille autorisée<br/>";}
 }
- ?>
+
+if(!(empty($_POST['mail']))){ // si le champ est rempli
+	$mail = mail_existe($_POST['mail']); //on teste si le mail est déjà utilisé
+	//si le mail est dispo
+	if ($mail == false){ 
+		update_info_mail($_POST['mail'],$_SESSION['client']['idUtilisateur']); //on met à jour la bd
+		echo "Votre mail a bien été modifié !<br/>";
+	}
+	//si le mail est présent dans la bd
+	else if ($mail == true){
+		echo "Votre mail est déjà lié à un compte existant<br/>";
+	}
+}
+
+//meme fonctionnement que les conditions pour l'adresse mail
+if(!(empty($_POST['pseudo']))){
+	$pseudo = pseudo_existe($_POST['pseudo']);
+	if ($pseudo == false){
+		update_info_pseudo($_POST['pseudo'],$_SESSION['client']['idUtilisateur']);
+		echo "Votre pseudo a bien été modifié !<br/>";
+	}
+	else if($pseudo == true){
+		echo "Votre pseudo existe déjà, merci d'en choisir un autre<br/>";
+	}
+}
+
+?>
+
 	<p>
-	<form  method="POST" action="" autocomplete="off" enctype="multipart/form-data">
+	<form  method="POST" action="modifier.php" autocomplete="off" enctype="multipart/form-data">
 			<div class="form-row">
 				<div class="col">
 				<label class="alinea"> Modifier votre avatar : </label> <br />
@@ -61,12 +124,12 @@ session_start();
 			<label class="alinea"> Modifier votre pseudo ou adresse mail :</label>
 			<div class="form-row">
 				<div class="col">
-				<?php echo '<input type="text" class="form-control" name="pseudo" placeholder="Identifiant" value="'.$_SESSION['client']['pseudo'].'"/>'; ?>
+				<?php echo '<input type="text" class="form-control" name="pseudo" placeholder="Identifiant" value=""/>'; ?>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="col">
-				<?php echo '<input type="text" class="form-control" name="mail" placeholder="Adresse Mail" value="'.$_SESSION['client']['mail_utilisateur'].'"/>'; ?>
+				<?php echo '<input type="text" class="form-control" name="mail" placeholder="Adresse Mail" value=""/>'; ?>
 				</div>
 			</div> <br/>
 			<label class="alinea"> Modifier votre mot de passe : </label>
@@ -82,7 +145,7 @@ session_start();
 			</div><br>
 			<div class="form-row">
 				<div class="col offset-0.1 ">
-					<button type="submit" class="btn btn-outline-dark btn-floating m-1">Submit</button>
+					<button type="submit" id="monbouton" class="btn btn-outline-dark btn-floating m-1">Valider les changements</button>
 				</div>
 			</div>
 		</form>	
@@ -113,6 +176,12 @@ session_start();
 
 	?>
 	</p>
+	
+	<div class="centerMe">
+	<form method="POST" action="profil.php" autocomplete="off">
+			<button type="submit" class="btn btn-dark">Retour au profil</button>
+	</form>
+	</div>
 
 	
   	<?php require_once "./footer.php";?>

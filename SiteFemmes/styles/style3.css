@@ -157,3 +157,7 @@ tr.tab_comm{
 .alinea{
 	margin-left : 10px;
 }
+
+.centerMe{
+	text-align : center;
+}
