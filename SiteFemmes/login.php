@@ -7,12 +7,30 @@
   <meta charset="utf-8">
   <title>Les Femmes à la TV et à la Radio</title>
   <?php require_once "./appelstyles.php";?>
-
+<script> 
+function connex_alert(){
+	alert("Le pseudo ou le mot de passe est incorrect");}
+function connex_vide(){
+	alert("Veuillez remplir les deux champs");}
+	
+</script>
 
 </head>
-
-<body>
-	<?php require_once "./header.php";?>
+<?php
+	if(!(empty($_SESSION['connex_vide']))){
+		unset($_SESSION['connex_vide']);
+		echo '<body onload="connex_vide()">';		
+	}
+	else if (!(empty($_SESSION['connex']))){
+		unset($_SESSION['connex']);
+		echo '<body onload="connex_alert()">';
+	}
+	else{
+		echo'<body>';
+	}
+	?>
+	
+<?php require_once "./header.php";?>
 
 	<div class="container addtopmargin addbottommargin">
 		<form action="login2.php" method="post" autocomplete="off">
