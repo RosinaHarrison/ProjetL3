@@ -29,10 +29,10 @@
         }
       }
 
-	if(!(empty($_POST['pseudo'])) AND !(empty($_POST['pseudo']))){		
+	if(!(empty($_POST['pseudo'])) AND !(empty($_POST['pseudo']))){	//on vérifie si champ remplis
 		  $connect = connecter($_POST['pseudo'],$_POST['mdp']);
 		  
-		  if ($connect == -1){
+		  if ($connect == -1){ //on vérifie si l'utilisateur existe
 			$_SESSION['connex']='non';
 			echo '<META http-EQUIV="Refresh" CONTENT="0; url=login.php"/>';
 		  }

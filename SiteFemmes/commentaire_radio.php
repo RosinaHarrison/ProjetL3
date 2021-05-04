@@ -6,7 +6,7 @@
 
 					<textarea name="com" class="form-control" placeholder="Commentaire" value=""> </textarea>
 					<?php echo'<input type="hidden" name="ref" value="'.$_GET['rnomMed'].'">'; ?>
-					
+					<?php echo'<input type="hidden" name="typePage" value="radio">'; ?>
 				</div>
 			</div>	
 			<div class="form-row">

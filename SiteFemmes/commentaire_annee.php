@@ -6,6 +6,7 @@
 
 					<textarea name="com" class="form-control" placeholder="Commentaire" value=""> </textarea>
 					<?php echo'<input type="hidden" name="ref" value="'.$_GET['annee'].'">'; ?>
+					<?php echo'<input type="hidden" name="typePage" value="year">'; ?>
 					
 				</div>
 			</div>	

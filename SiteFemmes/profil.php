@@ -23,8 +23,8 @@
 	
 	echo '<img class="avatar-circle" src="avatars/'.$_SESSION['client']['avatar'].'"><br/>'; //recup de la photo de profil
 	
-	echo 'Votre nom d\'utilisateur : '.$_SESSION['client']['pseudo'].'<br />';
-	echo 'Votre adresse mail : '.$_SESSION['client']['mail_utilisateur'].'';
+	echo 'Pseudo : '.$_SESSION['client']['pseudo'].'<br />';
+	echo 'Adresse mail : '.$_SESSION['client']['mail_utilisateur'].'';
 	
 	?>
 	
@@ -42,8 +42,17 @@
 	echo '</thead>';
 	$bdd = getBD_TDP(); //connexion bd
 	$recupComm = $bdd -> query ('SELECT * FROM commentaire WHERE pseudo = "'.$_SESSION['client']['pseudo'].'"'); //requete pour récupérer les commentaires de l'utilisateur 
+		
 	while ($ligne = $recupComm -> fetch()){
-		echo '<tr class="tab_comm"><td>'.$ligne['ref'].'</td><td>'.$ligne['commentaire_texte'].'</td><td>'.$ligne['dateCom'].'</td></tr>';		
+		
+		if ($ligne['typePage'] == "year"){
+			$lien = "year.php?annee=";}
+		if($ligne['typePage'] == "radio"){
+			$lien = "radioPage.php?rnomMed=";}
+		if($ligne['typePage'] == "tv"){
+			$lien="tvPage.php?rnomMed=";}
+			
+		echo '<tr class="tab_comm"><td><a href="'.$lien.''.$ligne['ref'].'">'.$ligne['ref'].'</a></td><td>'.$ligne['commentaire_texte'].'</td><td>'.$ligne['dateCom'].'</td></tr>';		
 	}
 	$recupComm -> closeCursor();
 	echo'</table>';
