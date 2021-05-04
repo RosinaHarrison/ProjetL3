@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mar. 04 mai 2021 à 10:10
+-- Généré le : mar. 04 mai 2021 à 14:41
 -- Version du serveur :  5.7.24
 -- Version de PHP : 7.4.1
 
@@ -266,10 +266,13 @@ CREATE TABLE `favoris` (
 INSERT INTO `favoris` (`id_fav`, `idUt`, `lien`, `nomPage`) VALUES
 (14, 8, 'radioPage.php?rnomMed=RFM', 'RFM'),
 (15, 8, 'radioPage.php?rnomMed=NRJ', 'NRJ'),
-(16, 8, 'radioPage.php?rnomMed=Europe 1', 'Europe 1'),
 (17, 8, 'tvPage.php?rnomMed=M6', 'M6'),
 (18, 8, 'year.php?annee=2009', '2009'),
-(19, 8, 'radioPage.php?rnomMed=NRJ', 'NRJ');
+(19, 8, 'radioPage.php?rnomMed=NRJ', 'NRJ'),
+(20, 8, 'tvPage.php?rnomMed=Canal plus Sport', 'Canal plus Sport'),
+(21, 8, 'tvPage.php?rnomMed=Canal plus Sport', 'Canal plus Sport'),
+(22, 8, 'radioPage.php?rnomMed=RFM', 'RFM'),
+(23, 8, 'radioPage.php?rnomMed=Fun Radio', 'Fun Radio');
 
 -- --------------------------------------------------------
 
@@ -1016,7 +1019,8 @@ CREATE TABLE `utilisateur` (
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `pseudo`, `mdp_u`, `mail_utilisateur`, `avatar`) VALUES
 (8, 'rosinax', 'password', 'harrison.rosina@gmail.com', '8.jpg'),
-(10, 'pierre200', 'pierre', 'pierre@hotmail.com', 'default_avatar.jpg');
+(10, 'pierre200', 'pierre', 'pierre@hotmail.com', 'default_avatar.jpg'),
+(11, 'sandrabringay', 'password', 'sandra.bringay@univ-montp3.fr', 'default_avatar.jpg');
 
 --
 -- Index pour les tables déchargées
@@ -1114,7 +1118,7 @@ ALTER TABLE `commentaire`
 -- AUTO_INCREMENT pour la table `favoris`
 --
 ALTER TABLE `favoris`
-  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `media`
@@ -1126,7 +1130,7 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Contraintes pour les tables déchargées
