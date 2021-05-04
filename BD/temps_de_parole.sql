@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mar. 27 avr. 2021 à 18:10
+-- Généré le : mar. 04 mai 2021 à 10:10
 -- Version du serveur :  5.7.24
 -- Version de PHP : 7.4.1
 
@@ -141,17 +141,17 @@ CREATE TABLE `commentaire` (
   `ref` varchar(100) DEFAULT NULL,
   `pseudo` varchar(255) DEFAULT NULL,
   `dateCom` varchar(200) DEFAULT NULL,
-  `avatarCom` varchar(256) NOT NULL
+  `avatarCom` varchar(256) NOT NULL,
+  `typePage` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `commentaire`
 --
 
-INSERT INTO `commentaire` (`idCom`, `commentaire_texte`, `ref`, `pseudo`, `dateCom`, `avatarCom`) VALUES
-(14, ' Très intéressant !', '2010', 'rosinax', '2021-04-27 12:32:40', '8.jpg'),
-(15, ' On voit quand même une augmentation !', 'Europe 1', 'rosinax', '2021-04-27 12:37:57', '8.jpg'),
-(16, ' Il y a une grosse disproportion ici !', 'Canal plus Sport', 'rosinax', '2021-04-27 12:38:23', '8.jpg');
+INSERT INTO `commentaire` (`idCom`, `commentaire_texte`, `ref`, `pseudo`, `dateCom`, `avatarCom`, `typePage`) VALUES
+(20, ' On voit quand même une disproportion ici...', 'Canal plus Sport', 'rosinax', '2021-05-04 09:42:45', '8.jpg', 'tv'),
+(22, ' Très intéressant !', 'Europe 1', 'rosinax', '2021-05-04 09:48:47', '8.jpg', 'radio');
 
 -- --------------------------------------------------------
 
@@ -265,7 +265,11 @@ CREATE TABLE `favoris` (
 
 INSERT INTO `favoris` (`id_fav`, `idUt`, `lien`, `nomPage`) VALUES
 (14, 8, 'radioPage.php?rnomMed=RFM', 'RFM'),
-(15, 8, 'radioPage.php?rnomMed=NRJ', 'NRJ');
+(15, 8, 'radioPage.php?rnomMed=NRJ', 'NRJ'),
+(16, 8, 'radioPage.php?rnomMed=Europe 1', 'Europe 1'),
+(17, 8, 'tvPage.php?rnomMed=M6', 'M6'),
+(18, 8, 'year.php?annee=2009', '2009'),
+(19, 8, 'radioPage.php?rnomMed=NRJ', 'NRJ');
 
 -- --------------------------------------------------------
 
@@ -1011,7 +1015,7 @@ CREATE TABLE `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `pseudo`, `mdp_u`, `mail_utilisateur`, `avatar`) VALUES
-(8, 'rosinax', 'mdp', 'harrison.rosina@gmail.com', '8.jpg'),
+(8, 'rosinax', 'password', 'harrison.rosina@gmail.com', '8.jpg'),
 (10, 'pierre200', 'pierre', 'pierre@hotmail.com', 'default_avatar.jpg');
 
 --
@@ -1104,13 +1108,13 @@ ALTER TABLE `amelioration`
 -- AUTO_INCREMENT pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  MODIFY `idCom` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idCom` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT pour la table `favoris`
 --
 ALTER TABLE `favoris`
-  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT pour la table `media`
@@ -1122,7 +1126,7 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Contraintes pour les tables déchargées
