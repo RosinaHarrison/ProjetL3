@@ -124,12 +124,12 @@ if(!(empty($_POST['pseudo']))){
 			<label class="alinea"> Modifier votre pseudo ou adresse mail :</label>
 			<div class="form-row">
 				<div class="col">
-				<?php echo '<input type="text" class="form-control" name="pseudo" placeholder="Identifiant" value=""/>'; ?>
+				<?php echo '<input type="text" class="form-control" name="pseudo" placeholder="Identifiant" value='.$_POST['pseudo'].'>'; ?>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="col">
-				<?php echo '<input type="text" class="form-control" name="mail" placeholder="Adresse Mail" value=""/>'; ?>
+				<?php echo '<input type="text" class="form-control" name="mail" placeholder="Adresse Mail" value='.$_POST['mail'].'>'; ?>
 				</div>
 			</div> <br/>
 			<label class="alinea"> Modifier votre mot de passe : </label>

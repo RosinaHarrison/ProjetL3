@@ -18,11 +18,12 @@
 </script>
 </head>
 <?php 
-		//premiere condition correpsond à celle de registration mais n'a pas fonctionné
-		/*if (!(empty($_SESSION['inscr_existe']))){
+		//premiere condition correspond à celle de registration mais n'a pas fonctionné
+		if (!(empty($_SESSION['inscr_existe']))){
 			unset($_SESSION['inscr_existe']);
 			echo "<body onload = popup_inscr_existe()>";
-		}*/
+		}
+
 		if (!(empty($_SESSION['inscr_vide']))){ // verifie si il y a un champ vide
 			unset($_SESSION['inscr_vide']); // si oui, on détruit la variable
 			echo '<body onLoad = "popup_inscr_vide()">'; //chargement popup correspondante à l'erreur

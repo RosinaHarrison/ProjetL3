@@ -9,6 +9,7 @@ ini_set('display_startup_errors', TRUE);
   <head>
     <?php
       require 'call_bd.php';
+	  require 'modif_profil.php';
 
       function enregistrer($pseudo,$mdp,$mail,$avatar){
         $bdd = getBD_TDP();
@@ -20,30 +21,24 @@ ini_set('display_startup_errors', TRUE);
         $exec = $statement->execute($data); //execution
       }
 
-	  // première condition if vérifie si l'utilisateur est déja inscrit lors d'une nouvelle inscription
-	  // cela n'a pas aboutit mais je laisse le code ici :
-	  
-		/*$bdd = getBD_TDP();
-		$query = 'SELECT EXISTS(SELECT * FROM table WHERE pseudo=? OR mail_utilisateur=?)';
-		$data = array($_POST['pseudo'],$_POST['mail']);
-		$res = $bdd-> prepare($query);
-		$res -> execute($data);
-		$resultat = $res -> fetch();
-		if($resultat == true){
-			$_SESSION['inscr_existe']= 'oui';		
-			echo'<meta http-equiv="refresh" content="0;URL=register.php">';
+	//conditions lors de l'inscription
+		if ($_POST['pseudo']=="" or $_POST['mail']=="" or $_POST['mdp1']=="" or $_POST['mdp2']=="") {
+			$_SESSION['inscr_vide']='oui'; // vérification de champs vides -> correspond à une alerte dans register.php
+			echo '<meta http-equiv="refresh" content="0;URL=register.php?pseudo='.$_POST['pseudo'].'&mail='.$_POST['mail'].'"/>';
 		}
-		else{*/
-		
-			if ($_POST['pseudo']=="" or $_POST['mail']=="" or $_POST['mdp1']=="" or $_POST['mdp2']=="") {
-				$_SESSION['inscr_vide']='oui'; // vérification de champs vides -> correspond à une alerte dans register.php
+		else{
+			if($_POST['mdp1'] != $_POST['mdp2']){
+				$_SESSION['inscr_mdp']='oui'; // vérification mêmes mdp -> correspond à une autre alerte dans register.php après redirection
 				echo '<meta http-equiv="refresh" content="0;URL=register.php?pseudo='.$_POST['pseudo'].'&mail='.$_POST['mail'].'"/>';
 			}
 			else{
-				if($_POST['mdp1'] != $_POST['mdp2']){
-					$_SESSION['inscr_mdp']='oui'; // vérification mêmes mdp -> correspond à une autre alerte dans register.php après redirection
-					echo '<meta http-equiv="refresh" content="0;URL=register.php?pseudo='.$_POST['pseudo'].'&mail='.$_POST['mail'].'"/>';
-				}
+				$mail = mail_existe($_POST['mail']); //on teste si le mail est déjà utilisé
+				$pseudo = pseudo_existe($_POST['pseudo']);
+				//si le mail est présent dans la bd
+				if ($mail == true OR $pseudo = true){
+					$_SESSION['inscr_existe']='oui';
+					echo '<meta http-equiv="refresh" content="0;URL=register.php">';
+			}
 				else{
 					$avatar = "default_avatar.jpg";
 					enregistrer($_POST['pseudo'],$_POST['mdp1'],$_POST['mail'],$avatar); //enregistrement sur la bd
@@ -51,6 +46,7 @@ ini_set('display_startup_errors', TRUE);
 					echo '<meta http-equiv="refresh" content="0;URL=index.php"/>';
 				}
 			}
+		}
     ?>
     <title>Registration</title>
   </head>
